@@ -9,6 +9,7 @@ Implementations are primarily in Python/PyTorch, with C++ for low-level work lik
 | Paper | Directory | Description |
 |-------|-----------|-------------|
 | [Adam: A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980) (Kingma & Ba, 2014) | [`adam/`](adam/) | Custom Adam optimizer benchmarked against SGD with momentum on CIFAR-10 using ResNet-18 |
+| [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239) (Ho et al., 2020) | [`ddpm/`](ddpm/) | U-Net noise predictor with linear schedule, trained on CelebA 64x64 |
 
 ## Setup
 
