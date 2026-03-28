@@ -46,10 +46,6 @@ dataset = ImageFolder("../data/celeba_raw/img_align_celeba", transform=transform
 dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True, num_workers=8, pin_memory=True)
 
 model = UNet(in_channels=3, channel_mults=(1, 2, 4, 8)).to(device)
-model = torch.compile(model)
-diffusion = DDPM(model, T=args.timesteps, device=device)
-optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
-scaler = torch.amp.GradScaler(enabled=(device.type == "cuda"))
 
 os.makedirs("plots", exist_ok=True)
 os.makedirs("models", exist_ok=True)
@@ -60,13 +56,20 @@ if args.resume:
     if "model" in checkpoint:
         state_dict = {k.replace("_orig_mod.", ""): v for k, v in checkpoint["model"].items()}
         model.load_state_dict(state_dict)
-        optimizer.load_state_dict(checkpoint["optimizer"])
-        scaler.load_state_dict(checkpoint["scaler"])
         start_epoch = checkpoint["epoch"]
     else:
         state_dict = {k.replace("_orig_mod.", ""): v for k, v in checkpoint.items()}
         model.load_state_dict(state_dict)
     print(f"Resumed from epoch {start_epoch}")
+
+model = torch.compile(model)
+diffusion = DDPM(model, T=args.timesteps, device=device)
+optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
+scaler = torch.amp.GradScaler(enabled=(device.type == "cuda"))
+
+if args.resume and "optimizer" in checkpoint:
+    optimizer.load_state_dict(checkpoint["optimizer"])
+    scaler.load_state_dict(checkpoint["scaler"])
 
 for epoch in range(start_epoch, args.epochs):
     model.train()
