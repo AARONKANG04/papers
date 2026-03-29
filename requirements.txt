@@ -2,3 +2,6 @@ torch
 torchvision
 matplotlib
 tqdm
+tiktoken
+datasets
+numpy

@@ -10,6 +10,8 @@ Implementations are primarily in Python/PyTorch, with C++ for low-level work lik
 |-------|-----------|-------------|
 | [Adam: A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980) (Kingma & Ba, 2014) | [`adam/`](adam/) | Custom Adam optimizer benchmarked against SGD with momentum on CIFAR-10 using ResNet-18 |
 | [Denoising Diffusion Probabilistic Models](https://arxiv.org/abs/2006.11239) (Ho et al., 2020) | [`ddpm/`](ddpm/) | U-Net noise predictor with linear schedule, trained on CelebA 64x64 |
+| [Denoising Diffusion Implicit Models](https://arxiv.org/abs/2010.02502) (Song et al., 2020) | [`ddim/`](ddim/) | Accelerated non-Markovian sampling for diffusion models, extending DDPM to fewer steps |
+| [Muon: An optimizer for hidden layers](https://kellerjordan.github.io/posts/muon/) (Jordan, 2024) | [`muon/`](muon/) | Muon optimizer with Newton-Schulz orthogonalization, compared against AdamW on GPT-2 small (85M) trained on FineWeb-Edu |
 
 ## Setup
 
